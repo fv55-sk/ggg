@@ -1,0 +1,1808 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Preference DNA: Taste, Play & Passion</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Canvas Confetti for celebrations & milestones -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <!-- Google Fonts: Space Grotesk, Plus Jakarta Sans, JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            display: ['"Space Grotesk"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          },
+          colors: {
+            brand: {
+              flavor: '#F97316',   // Vibrant Amber-Orange
+              hobby: '#10B981',    // Emerald Green
+              game: '#8B5CF6',     // Electric Purple
+              music: '#06B6D4',    // Cyber Cyan
+              media: '#EC4899',    // Hot Pink
+            }
+          },
+          animation: {
+            'glow-pulse': 'glowPulse 4s ease-in-out infinite',
+            'float-card': 'floatCard 6s ease-in-out infinite',
+            'shimmer': 'shimmer 2.5s infinite linear'
+          },
+          keyframes: {
+            glowPulse: {
+              '0%, 100%': { opacity: '0.3', transform: 'scale(1)' },
+              '50%': { opacity: '0.6', transform: 'scale(1.08)' }
+            },
+            floatCard: {
+              '0%, 100%': { transform: 'translateY(0px)' },
+              '50%': { transform: 'translateY(-6px)' }
+            },
+            shimmer: {
+              '0%': { transform: 'translateX(-100%)' },
+              '100%': { transform: 'translateX(100%)' }
+            }
+          }
+        }
+      }
+    };
+  </script>
+
+  <style>
+    /* Custom Scrollbars */
+    ::-webkit-scrollbar {
+      width: 7px;
+      height: 7px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #090e1a;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #1e293b;
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #334155;
+    }
+    /* Glassmorphism Classes */
+    .glass-card {
+      background: rgba(15, 23, 42, 0.75);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .glass-card-hover {
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .glass-card-hover:hover {
+      background: rgba(30, 41, 59, 0.85);
+      border-color: rgba(255, 255, 255, 0.2);
+      transform: translateY(-2px);
+    }
+    /* Drag-and-drop Tier highlights */
+    .tier-slot.drag-over {
+      background: rgba(139, 92, 246, 0.18) !important;
+      border-color: #a78bfa !important;
+    }
+    /* Card shine effect */
+    .passport-gradient {
+      background: linear-gradient(135deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.01) 100%);
+    }
+  </style>
+</head>
+<body class="bg-[#070b14] text-slate-100 min-h-screen flex flex-col font-sans selection:bg-purple-500/30 selection:text-purple-300 relative overflow-x-hidden">
+
+  <!-- Ambient background glow orbs -->
+  <div class="fixed inset-0 pointer-events-none overflow-hidden z-0">
+    <div class="absolute -top-32 -left-32 w-96 h-96 rounded-full bg-purple-600/15 animate-glow-pulse blur-3xl"></div>
+    <div class="absolute top-1/2 -right-32 w-[28rem] h-[28rem] rounded-full bg-amber-600/15 animate-glow-pulse blur-3xl" style="animation-delay: 2s;"></div>
+    <div class="absolute -bottom-32 left-1/3 w-96 h-96 rounded-full bg-emerald-600/15 animate-glow-pulse blur-3xl" style="animation-delay: 1s;"></div>
+  </div>
+
+  <header class="sticky top-0 z-50 glass-card border-b border-white/10 px-4 sm:px-6 lg:px-8 py-3.5">
+    <div class="max-w-7xl mx-auto flex items-center justify-between gap-4">
+      
+      <!-- Brand & Title -->
+      <div class="flex items-center gap-3 cursor-pointer" onclick="switchTab('profile')">
+        <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-orange-500 via-purple-600 to-cyan-500 flex items-center justify-center text-xl font-bold shadow-lg shadow-purple-500/25 transform hover:rotate-6 transition">
+          🧬
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="font-display font-bold text-lg sm:text-xl tracking-tight text-white">Preference<span class="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 via-purple-400 to-cyan-400">DNA</span></span>
+            <span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-white/10 text-purple-300 border border-white/10 hidden sm:inline-block">Taste • Play • Life</span>
+          </div>
+          <p class="text-[11px] text-slate-400 font-mono">The Ultimate Personality & Favorites Matrix</p>
+        </div>
+      </div>
+
+      <!-- Main Navigation Menu -->
+      <nav class="hidden md:flex items-center gap-1 bg-slate-900/90 p-1.5 rounded-2xl border border-white/5">
+        <button id="nav-btn-profile" onclick="switchTab('profile')" class="nav-tab px-3.5 py-1.5 rounded-xl text-xs font-bold transition text-white bg-gradient-to-r from-purple-600 to-orange-500 shadow-md">
+          📇 ID Studio
+        </button>
+        <button id="nav-btn-faceoff" onclick="switchTab('faceoff')" class="nav-tab px-3.5 py-1.5 rounded-xl text-xs font-semibold text-slate-400 hover:text-white transition">
+          ⚡ Face-Off
+        </button>
+        <button id="nav-btn-tierlist" onclick="switchTab('tierlist')" class="nav-tab px-3.5 py-1.5 rounded-xl text-xs font-semibold text-slate-400 hover:text-white transition">
+          🏆 Tier Board
+        </button>
+        <button id="nav-btn-quiz" onclick="switchTab('quiz')" class="nav-tab px-3.5 py-1.5 rounded-xl text-xs font-semibold text-slate-400 hover:text-white transition">
+          🎯 Vibe Quiz
+        </button>
+        <button id="nav-btn-compatibility" onclick="switchTab('compatibility')" class="nav-tab px-3.5 py-1.5 rounded-xl text-xs font-semibold text-slate-400 hover:text-white transition">
+          💞 Duo Match
+        </button>
+      </nav>
+
+      <!-- Audio & Action Buttons -->
+      <div class="flex items-center gap-2">
+        <button id="sound-btn" onclick="toggleSound()" class="px-3 py-1.5 rounded-xl bg-slate-800/80 hover:bg-slate-700 border border-white/10 text-xs font-mono flex items-center gap-2 text-slate-300 transition" title="Toggle Synthesizer Sound Effects">
+          <span id="sound-indicator" class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+          <span id="sound-label" class="hidden sm:inline">Audio: ON</span>
+        </button>
+        <button onclick="shareMyPassportModal()" class="px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-purple-600 to-cyan-600 hover:from-purple-500 hover:to-cyan-500 text-white text-xs font-bold shadow-md shadow-purple-600/30 transition active:scale-95 flex items-center gap-1.5">
+          <span>✨</span>
+          <span class="hidden sm:inline">Export Card</span>
+        </button>
+      </div>
+
+    </div>
+
+    <!-- Mobile Subnav Bar -->
+    <div class="flex md:hidden items-center justify-around pt-2.5 mt-2 border-t border-white/5 text-[11px] font-bold">
+      <button onclick="switchTab('profile')" id="mob-nav-profile" class="text-purple-400">ID Studio</button>
+      <button onclick="switchTab('faceoff')" id="mob-nav-faceoff" class="text-slate-400">Face-Off</button>
+      <button onclick="switchTab('tierlist')" id="mob-nav-tierlist" class="text-slate-400">Tier List</button>
+      <button onclick="switchTab('quiz')" id="mob-nav-quiz" class="text-slate-400">Quiz</button>
+      <button onclick="switchTab('compatibility')" id="mob-nav-compatibility" class="text-slate-400">Duos</button>
+    </div>
+  </header>
+
+  <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 z-10 space-y-6">
+
+    <!-- =========================================================================
+         TAB 1: BUILD MY FAVORITES PROFILE (ID CARD & PASSPORT STUDIO)
+         ========================================================================= -->
+    <section id="tab-profile" class="space-y-6">
+      
+      <!-- Top banner -->
+      <div class="glass-card rounded-3xl p-6 sm:p-8 border border-white/10 flex flex-col md:flex-row md:items-center justify-between gap-6 relative overflow-hidden">
+        <div class="space-y-2 max-w-2xl">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-500/10 border border-purple-500/30 text-purple-300 text-xs font-mono">
+            <span>🧬</span> PERSONAL PREFERENCE PASSPORT
+          </div>
+          <h2 class="text-2xl sm:text-3xl font-display font-bold text-white tracking-tight">
+            Craft Your Taste & Lifestyle Identity Card
+          </h2>
+          <p class="text-sm text-slate-400 leading-relaxed">
+            Select or customize your true holy trinity: your <strong>#1 Favorite Flavor</strong>, your <strong>#1 Free-time Passion/Hobby</strong>, and your <strong>#1 Favorite Video Game</strong> (plus aesthetic audio vibe). Your archetype and radar stats will generate instantly!
+          </p>
+        </div>
+
+        <!-- Quick actions -->
+        <div class="flex flex-wrap items-center gap-2.5">
+          <button onclick="randomizeFavorites()" class="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 border border-white/10 text-xs font-bold text-slate-200 transition active:scale-95 flex items-center gap-1.5">
+            <span>🎲</span> Randomize Fusion
+          </button>
+          <button onclick="saveProfile()" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-purple-600 via-pink-600 to-orange-500 hover:opacity-95 text-xs font-bold text-white shadow-lg shadow-purple-600/25 transition active:scale-95 flex items-center gap-1.5">
+            <span>💾</span> Save to Storage
+          </button>
+        </div>
+      </div>
+
+      <!-- Studio Layout: Left Customizer (7 cols), Right Live Trading Card (5 cols) -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+        
+        <!-- Preferences Selector Form -->
+        <div class="lg:col-span-7 space-y-4">
+          
+          <!-- Category 1: Favorite Flavor & Food Profile -->
+          <div class="glass-card rounded-2xl p-5 border-l-4 border-orange-500 space-y-3">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-2.5">
+                <span class="w-8 h-8 rounded-xl bg-orange-500/20 text-orange-400 flex items-center justify-center text-base">🍕</span>
+                <div>
+                  <h3 class="font-display font-bold text-sm text-white">#1 Favorite Flavor & Food</h3>
+                  <p class="text-[11px] text-slate-400">What flavor palate rules your kitchen?</p>
+                </div>
+              </div>
+              <span id="badge-flavor" class="text-xs font-mono font-bold text-orange-400 bg-orange-950/60 px-2.5 py-1 rounded border border-orange-500/30">Spicy Garlic Ramen</span>
+            </div>
+
+            <!-- Pre-made Pills -->
+            <div class="flex flex-wrap gap-2 pt-1" id="flavor-pills">
+              <!-- Dynamically populated or static fast buttons -->
+              <button onclick="setFavorite('flavor', 'Spicy Garlic Ramen', '🍜')" class="px-3 py-1.5 rounded-xl text-xs font-medium bg-slate-800/80 hover:bg-slate-700 text-slate-300 border border-white/5 transition">🍜 Spicy Garlic Ramen</button>
+              <button onclick="setFavorite('flavor', 'Sweet Mango Sticky Rice', '🥭')" class="px-3 py-1.5 rounded-xl text-xs font-medium bg-slate-800/80 hover:bg-slate-700 text-slate-300 border border-white/5 transition">🥭 Mango Sticky Rice</button>
+              <button onclick="setFavorite('flavor', 'Truffle Parmesan Fries', '🍟')" class="px-3 py-1.5 rounded-xl text-xs font-medium bg-slate-800/80 hover:bg-slate-700 text-slate-300 border border-white/5 transition">🍟 Truffle Parmesan</button>
+              <button onclick="setFavorite('flavor', 'Hot Honey Bacon Pizza', '🍕')" class="px-3 py-1.5 rounded-xl text-xs font-medium bg-slate-800/80 hover:bg-slate-700 text-slate-300 border border-white/5 transition">🍕 Hot Honey Pizza</button>
+              <button onclick="setFavorite('flavor', 'Matcha Strawberry Boba', '🍵')" class="px-3 py-1.5 rounded-xl text-xs font-medium bg-slate-800/80 hover:bg-slate-700 text-slate-300 border border-white/5 transition">🍵 Matcha Boba</button>
+              <button onclick="setFavorite('flavor', 'Dark Salted Caramel Tart', '🍫')" class="px-3 py-1.5 rounded-xl text-xs font-medium bg-slate-800/80 hover:bg-slate-700 text-slate-300 border border-white/5 transition">🍫 Salted Caramel</button>
+            </div>
+
+            <!-- Custom Input -->
+            <div class="flex items-center gap-2 pt-1">
+              <input type="text" id="custom-flavor-input" placeholder="Or type custom flavor..." class="flex-grow bg-slate-900/80 border border-white/10 rounded-xl px-3.5 py-2 text-xs text-white focus:outline-none focus:border-orange-500 font-mono">
+              <button onclick="applyCustomFavorite('flavor')" class="px-3.5 py-2 rounded-xl bg-orange-600/30 hover:bg-orange-600/50 border border-orange-500/50 text-orange-300 text-xs font-bold transition">Apply</button>
+            </div>
+          </div>
+
+          <!-- Category 2: Favorite Hobby & Passion -->
+          <div class="glass-card rounded-2xl p-5 border-l-4 border-emerald-500 space-y-3">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-2.5">
+                <span class="w-8 h-8 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-base">🎨</span>
+                <div>
+                  <h3 class="font-display font-bold text-sm text-white">#1 Favorite Hobby / Passion</h3>
+                  <p class="text-[11px] text-slate-400">How do you spend your golden offline hours?</p>
+                </div>
+              </div>
+              <span id="badge-hobby" class="text-xs font-mono font-bold text-emerald-400 bg-emerald-950/60 px-2.5 py-1 rounded border border-emerald-500/30">Night Urban Photography</span>
+            </div>
+
+            <div class="flex flex-wrap gap-2 pt-1" id="hobby-pills">
+              <button onclick="setFavorite('hobby', 'Night Urban Photography', '📸')" class="px-3 py-1.5 rounded-xl text-xs font-medium bg-slate-800/80 hover:bg-slate-700 text-slate-300 border border-white/5 transition">📸 Urban Photography</button>
+              <button onclick="setFavorite('hobby', 'Cooking Gourmet Feasts', '🍳')" class="px-3 py-1.5 rounded-xl text-xs font-medium bg-slate-800/80 hover:bg-slate-700 text-slate-300 border border-white/5 transition">🍳 Gourmet Cooking</button>
+              <button onclick="setFavorite('hobby', 'Creative Code & Web Dev', '💻')" class="px-3 py-1.5 rounded-xl text-xs font-medium bg-slate-800/80 hover:bg-slate-700 text-slate-300 border border-white/5 transition">💻 Creative Coding</button>
+              <button onclick="setFavorite('hobby', 'Mountain Trail Hiking', '🥾')" class="px-3 py-1.5 rounded-xl text-xs font-medium bg-slate-800/80 hover:bg-slate-700 text-slate-300 border border-white/5 transition">🥾 Mountain Hiking</button>
+              <button onclick="setFavorite('hobby', 'Playing Guitar / Synth', '🎸')" class="px-3 py-1.5 rounded-xl text-xs font-medium bg-slate-800/80 hover:bg-slate-700 text-slate-300 border border-white/5 transition">🎸 Guitar & Synths</button>
+              <button onclick="setFavorite('hobby', 'Digital Illustration & Art', '🎨')" class="px-3 py-1.5 rounded-xl text-xs font-medium bg-slate-800/80 hover:bg-slate-700 text-slate-300 border border-white/5 transition">🎨 Digital Illustration</button>
+            </div>
+
+            <div class="flex items-center gap-2 pt-1">
+              <input type="text" id="custom-hobby-input" placeholder="Or type custom hobby..." class="flex-grow bg-slate-900/80 border border-white/10 rounded-xl px-3.5 py-2 text-xs text-white focus:outline-none focus:border-emerald-500 font-mono">
+              <button onclick="applyCustomFavorite('hobby')" class="px-3.5 py-2 rounded-xl bg-emerald-600/30 hover:bg-emerald-600/50 border border-emerald-500/50 text-emerald-300 text-xs font-bold transition">Apply</button>
+            </div>
+          </div>
+
+          <!-- Category 3: Favorite Video Game & Genre -->
+          <div class="glass-card rounded-2xl p-5 border-l-4 border-purple-500 space-y-3">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-2.5">
+                <span class="w-8 h-8 rounded-xl bg-purple-500/20 text-purple-400 flex items-center justify-center text-base">🎮</span>
+                <div>
+                  <h3 class="font-display font-bold text-sm text-white">#1 Favorite Video Game</h3>
+                  <p class="text-[11px] text-slate-400">Which virtual universe has your heart?</p>
+                </div>
+              </div>
+              <span id="badge-game" class="text-xs font-mono font-bold text-purple-400 bg-purple-950/60 px-2.5 py-1 rounded border border-purple-500/30">Elden Ring</span>
+            </div>
+
+            <div class="flex flex-wrap gap-2 pt-1" id="game-pills">
+              <button onclick="setFavorite('game', 'Elden Ring / Souls', '⚔️')" class="px-3 py-1.5 rounded-xl text-xs font-medium bg-slate-800/80 hover:bg-slate-700 text-slate-300 border border-white/5 transition">⚔️ Elden Ring</button>
+              <button onclick="setFavorite('game', 'Zelda: Tears of the Kingdom', '🗡️')" class="px-3 py-1.5 rounded-xl text-xs font-medium bg-slate-800/80 hover:bg-slate-700 text-slate-300 border border-white/5 transition">🗡️ Zelda TOTK</button>
+              <button onclick="setFavorite('game', 'Minecraft / Sandbox', '🧱')" class="px-3 py-1.5 rounded-xl text-xs font-medium bg-slate-800/80 hover:bg-slate-700 text-slate-300 border border-white/5 transition">🧱 Minecraft Sandbox</button>
+              <button onclick="setFavorite('game', 'Valorant / Tact FPS', '🎯')" class="px-3 py-1.5 rounded-xl text-xs font-medium bg-slate-800/80 hover:bg-slate-700 text-slate-300 border border-white/5 transition">🎯 Valorant / FPS</button>
+              <button onclick="setFavorite('game', 'Stardew Valley / Farming', '🌾')" class="px-3 py-1.5 rounded-xl text-xs font-medium bg-slate-800/80 hover:bg-slate-700 text-slate-300 border border-white/5 transition">🌾 Stardew Valley</button>
+              <button onclick="setFavorite('game', 'Baldur’s Gate 3', '🎲')" class="px-3 py-1.5 rounded-xl text-xs font-medium bg-slate-800/80 hover:bg-slate-700 text-slate-300 border border-white/5 transition">🎲 Baldur's Gate 3</button>
+            </div>
+
+            <div class="flex items-center gap-2 pt-1">
+              <input type="text" id="custom-game-input" placeholder="Or type custom game title..." class="flex-grow bg-slate-900/80 border border-white/10 rounded-xl px-3.5 py-2 text-xs text-white focus:outline-none focus:border-purple-500 font-mono">
+              <button onclick="applyCustomFavorite('game')" class="px-3.5 py-2 rounded-xl bg-purple-600/30 hover:bg-purple-600/50 border border-purple-500/50 text-purple-300 text-xs font-bold transition">Apply</button>
+            </div>
+          </div>
+
+          <!-- Category 4: Music Vibe & Persona Nickname -->
+          <div class="glass-card rounded-2xl p-5 border-l-4 border-cyan-500 grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-mono font-bold text-cyan-400 mb-1">🎵 Favorite Music / Vibe</label>
+              <select id="select-music-vibe" onchange="updateMusicVibe(this.value)" class="w-full bg-slate-900 border border-white/10 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-cyan-500">
+                <option value="Lo-Fi Vinyl Chill & Rain">☕ Lo-Fi Vinyl Chill & Rain</option>
+                <option value="80s Neon Synthwave Overdrive">🎹 80s Neon Synthwave Overdrive</option>
+                <option value="Epic Orchestral & Film Scores">🎻 Epic Orchestral & Film Scores</option>
+                <option value="Indie Folk & Acoustic Woods">🌲 Indie Folk & Acoustic Woods</option>
+                <option value="High-BPM Hyperpop & Breakcore">⚡ High-BPM Hyperpop & Breakcore</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-xs font-mono font-bold text-pink-400 mb-1">👤 Player Tag / Alias</label>
+              <input type="text" id="input-alias" value="SensorySeeker" oninput="updateAlias(this.value)" class="w-full bg-slate-900 border border-white/10 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-pink-500 font-mono">
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Right Side: The Ultra-Sleek "Trading Card / Passport" -->
+        <div class="lg:col-span-5 space-y-4 lg:sticky lg:top-24">
+          
+          <div id="trading-card-exportable" class="passport-gradient glass-card rounded-3xl p-6 sm:p-7 border-2 border-purple-500/30 shadow-2xl relative overflow-hidden flex flex-col justify-between space-y-6">
+            
+            <!-- Shimmer Top Light -->
+            <div class="absolute -top-24 -right-24 w-48 h-48 bg-gradient-to-br from-purple-500/30 to-pink-500/0 rounded-full blur-2xl pointer-events-none"></div>
+
+            <!-- Top Header & Chip -->
+            <div class="flex items-center justify-between border-b border-white/10 pb-4">
+              <div class="flex items-center gap-3">
+                <div id="card-avatar" class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-purple-600 via-pink-600 to-amber-500 flex items-center justify-center text-2xl shadow-lg shadow-purple-500/20">
+                  🍜
+                </div>
+                <div>
+                  <h4 id="card-player-alias" class="font-display font-bold text-lg text-white">SensorySeeker</h4>
+                  <span id="card-archetype-chip" class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-purple-500/20 text-purple-300 border border-purple-500/30">
+                    THE ADRENALINE GOURMAND
+                  </span>
+                </div>
+              </div>
+              <div class="text-right">
+                <span class="text-[9px] font-mono text-slate-400 uppercase tracking-widest block">DNA COHERENCE</span>
+                <span id="card-coherence" class="text-xs font-mono font-bold text-emerald-400">97.8% RESONANCE</span>
+              </div>
+            </div>
+
+            <!-- The Big 3 Preference Slots -->
+            <div class="space-y-2.5">
+              
+              <!-- Flavor Slot -->
+              <div class="p-3 rounded-2xl bg-slate-900/80 border border-orange-500/20 flex items-center justify-between hover:border-orange-500/40 transition">
+                <div class="flex items-center gap-3">
+                  <span id="card-icon-flavor" class="text-xl">🍜</span>
+                  <div>
+                    <span class="text-[9px] font-mono uppercase text-orange-400 font-bold block">Favorite Palate</span>
+                    <span id="card-val-flavor" class="text-xs font-bold text-white">Spicy Garlic Ramen</span>
+                  </div>
+                </div>
+                <span class="text-[10px] font-mono text-slate-400 bg-white/5 px-2 py-0.5 rounded">TASTE</span>
+              </div>
+
+              <!-- Hobby Slot -->
+              <div class="p-3 rounded-2xl bg-slate-900/80 border border-emerald-500/20 flex items-center justify-between hover:border-emerald-500/40 transition">
+                <div class="flex items-center gap-3">
+                  <span id="card-icon-hobby" class="text-xl">📸</span>
+                  <div>
+                    <span class="text-[9px] font-mono uppercase text-emerald-400 font-bold block">Favorite Hobby</span>
+                    <span id="card-val-hobby" class="text-xs font-bold text-white">Night Urban Photography</span>
+                  </div>
+                </div>
+                <span class="text-[10px] font-mono text-slate-400 bg-white/5 px-2 py-0.5 rounded">PASSION</span>
+              </div>
+
+              <!-- Game Slot -->
+              <div class="p-3 rounded-2xl bg-slate-900/80 border border-purple-500/20 flex items-center justify-between hover:border-purple-500/40 transition">
+                <div class="flex items-center gap-3">
+                  <span id="card-icon-game" class="text-xl">⚔️</span>
+                  <div>
+                    <span class="text-[9px] font-mono uppercase text-purple-400 font-bold block">Favorite Game</span>
+                    <span id="card-val-game" class="text-xs font-bold text-white">Elden Ring / Souls</span>
+                  </div>
+                </div>
+                <span class="text-[10px] font-mono text-slate-400 bg-white/5 px-2 py-0.5 rounded">VIRTUAL</span>
+              </div>
+
+            </div>
+
+            <!-- Archetype Bio Synthesis -->
+            <div class="p-3.5 rounded-2xl bg-slate-950/60 border border-white/5 space-y-1">
+              <span class="text-[10px] font-mono text-amber-400 font-bold uppercase block">✦ Persona Synthesis</span>
+              <p id="card-persona-quote" class="text-xs text-slate-300 italic font-serif leading-relaxed">
+                "Thrives on intense high-stakes boss parries, fueled by searing garlic ramen, wandering neon-drenched midnight streets with a vintage shutter."
+              </p>
+            </div>
+
+            <!-- Footer of card with barcode & sound -->
+            <div class="flex items-center justify-between pt-2 border-t border-white/10 text-xs font-mono text-slate-400">
+              <span id="card-music-note" class="text-[11px] text-cyan-400 truncate max-w-[210px]">🎧 Lo-Fi Chill & Rain</span>
+              <span class="text-[10px] tracking-widest text-slate-500">|||||| || | ||||</span>
+            </div>
+
+          </div>
+
+          <!-- Action buttons for the Card -->
+          <div class="grid grid-cols-2 gap-2.5">
+            <button onclick="shareMyPassportModal()" class="py-2.5 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-bold text-xs shadow-lg shadow-purple-600/30 active:scale-95 transition flex items-center justify-center gap-1.5">
+              <span>📋</span> Copy Card Summary
+            </button>
+            <button onclick="playArchetypeSound()" class="py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-white/10 font-bold text-xs active:scale-95 transition flex items-center justify-center gap-1.5">
+              <span>🎵</span> Play Vibe Chime
+            </button>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- =========================================================================
+         TAB 2: PREFERENCE FACE-OFF (THIS OR THAT RAPID MATCHUP)
+         ========================================================================= -->
+    <section id="tab-faceoff" class="hidden space-y-6">
+      
+      <!-- Top Scoreboard Bar -->
+      <div class="glass-card rounded-3xl p-6 border border-cyan-500/20 flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 text-xs font-mono mb-2">
+            <span>⚡</span> HIGH-VELOCITY SENSUAL DILEMMAS
+          </div>
+          <h2 class="text-2xl sm:text-3xl font-display font-bold text-white tracking-tight">
+            The Ultimate Preference Face-Off
+          </h2>
+          <p class="text-xs sm:text-sm text-slate-400">
+            Cross-category matchups! Flavor vs Hobby, Game vs Meal, Music vs Sport. Pick on pure instinct.
+          </p>
+        </div>
+
+        <!-- Metrics -->
+        <div class="flex items-center gap-3">
+          <div class="px-4 py-2 rounded-2xl bg-slate-900/90 border border-white/10 text-center">
+            <span class="text-[10px] font-mono text-slate-400 block uppercase">Decisions</span>
+            <span id="faceoff-total-votes" class="font-display font-bold text-lg text-white">0</span>
+          </div>
+          <div class="px-4 py-2 rounded-2xl bg-slate-900/90 border border-white/10 text-center">
+            <span class="text-[10px] font-mono text-cyan-400 block uppercase">Instinct Streak</span>
+            <span id="faceoff-streak" class="font-display font-bold text-lg text-cyan-300">0 🔥</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Matchup Arena Container -->
+      <div class="max-w-4xl mx-auto space-y-6 pt-2">
+        
+        <div class="flex items-center justify-between px-2 text-xs font-mono text-slate-400">
+          <span id="faceoff-category-tag" class="px-3 py-1 rounded-full bg-slate-800 border border-white/10 text-purple-300 font-bold">
+            CROSS-OVER DILEMMA
+          </span>
+          <span id="faceoff-counter">Dilemma 1 of 8</span>
+        </div>
+
+        <!-- Face-off cards 1v1 -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5 relative">
+          
+          <!-- Option A -->
+          <div onclick="voteFaceOff('A')" id="faceoff-card-a" class="cursor-pointer group glass-card-hover glass-card rounded-3xl p-6 sm:p-8 relative overflow-hidden flex flex-col justify-between border-2 border-white/10">
+            <div class="space-y-4">
+              <div class="w-16 h-16 rounded-2xl bg-purple-500/20 border border-purple-500/30 flex items-center justify-center text-4xl shadow-inner group-hover:scale-110 transition-transform">
+                <span id="fo-icon-a">🎮</span>
+              </div>
+              <div>
+                <span id="fo-type-a" class="text-[10px] font-mono uppercase font-bold text-purple-400 tracking-wider">GAMING OBSESSION</span>
+                <h3 id="fo-title-a" class="text-xl sm:text-2xl font-display font-bold text-white group-hover:text-purple-300 transition-colors">
+                  A 100-Hour Open World RPG Journey
+                </h3>
+              </div>
+              <p id="fo-desc-a" class="text-xs sm:text-sm text-slate-400 leading-relaxed">
+                Exploring every hidden dungeon, discovering ancient lore, and crafting legendary weapons across sprawling fantasy continents.
+              </p>
+            </div>
+
+            <!-- Stats Bar (Revealed on click) -->
+            <div id="fo-stats-a" class="hidden pt-6 mt-4 border-t border-white/10 space-y-2">
+              <div class="flex justify-between items-center text-xs font-mono">
+                <span class="text-slate-400">Community Consensus</span>
+                <span id="fo-pct-a" class="font-bold text-purple-400">62%</span>
+              </div>
+              <div class="w-full h-3 rounded-full bg-slate-800 overflow-hidden">
+                <div id="fo-bar-a" class="h-full bg-gradient-to-r from-purple-500 to-pink-500 transition-all duration-700" style="width: 62%;"></div>
+              </div>
+              <p class="text-[11px] font-mono text-slate-400 text-right"><span id="fo-votes-a">1,480</span> votes</p>
+            </div>
+
+            <div class="pt-6">
+              <span class="inline-flex items-center gap-1.5 text-xs font-bold text-purple-400 group-hover:text-purple-300 transition">
+                Choose Choice A &rarr;
+              </span>
+            </div>
+          </div>
+
+          <!-- Middle VS Disc -->
+          <div class="hidden md:flex absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-slate-900 border-2 border-purple-500 text-white font-display font-bold text-xs items-center justify-center shadow-2xl z-20 pointer-events-none">
+            VS
+          </div>
+
+          <!-- Option B -->
+          <div onclick="voteFaceOff('B')" id="faceoff-card-b" class="cursor-pointer group glass-card-hover glass-card rounded-3xl p-6 sm:p-8 relative overflow-hidden flex flex-col justify-between border-2 border-white/10">
+            <div class="space-y-4">
+              <div class="w-16 h-16 rounded-2xl bg-orange-500/20 border border-orange-500/30 flex items-center justify-center text-4xl shadow-inner group-hover:scale-110 transition-transform">
+                <span id="fo-icon-b">🍜</span>
+              </div>
+              <div>
+                <span id="fo-type-b" class="text-[10px] font-mono uppercase font-bold text-orange-400 tracking-wider">GASTRONOMY BLISS</span>
+                <h3 id="fo-title-b" class="text-xl sm:text-2xl font-display font-bold text-white group-hover:text-orange-300 transition-colors">
+                  Midnight Authentic Tokyo Ramen Crawl
+                </h3>
+              </div>
+              <p id="fo-desc-b" class="text-xs sm:text-sm text-slate-400 leading-relaxed">
+                Slurping steaming rich tonkotsu broth with flame-torched pork belly and marinated eggs at a rain-drenched wooden counter.
+              </p>
+            </div>
+
+            <!-- Stats Bar (Revealed on click) -->
+            <div id="fo-stats-b" class="hidden pt-6 mt-4 border-t border-white/10 space-y-2">
+              <div class="flex justify-between items-center text-xs font-mono">
+                <span class="text-slate-400">Community Consensus</span>
+                <span id="fo-pct-b" class="font-bold text-orange-400">38%</span>
+              </div>
+              <div class="w-full h-3 rounded-full bg-slate-800 overflow-hidden">
+                <div id="fo-bar-b" class="h-full bg-gradient-to-r from-orange-500 to-amber-500 transition-all duration-700" style="width: 38%;"></div>
+              </div>
+              <p class="text-[11px] font-mono text-slate-400 text-right"><span id="fo-votes-b">902</span> votes</p>
+            </div>
+
+            <div class="pt-6">
+              <span class="inline-flex items-center gap-1.5 text-xs font-bold text-orange-400 group-hover:text-orange-300 transition">
+                Choose Choice B &rarr;
+              </span>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Next matchup trigger -->
+        <div id="faceoff-next-container" class="hidden text-center py-3">
+          <button onclick="nextFaceOffMatch()" class="px-8 py-3 rounded-2xl bg-gradient-to-r from-purple-600 via-pink-600 to-orange-500 text-white font-display font-bold text-sm shadow-xl shadow-purple-600/30 hover:scale-105 active:scale-95 transition-all">
+            Next Face-Off Dilemma &rarr;
+          </button>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- =========================================================================
+         TAB 3: THE PREFERENCE TIER LIST MAKER
+         ========================================================================= -->
+    <section id="tab-tierlist" class="hidden space-y-6">
+      
+      <!-- Tier list header -->
+      <div class="glass-card rounded-3xl p-6 border border-amber-500/20 flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-300 text-xs font-mono mb-2">
+            <span>🏆</span> UNIFIED S-TIER RANKING STUDIO
+          </div>
+          <h2 class="text-2xl sm:text-3xl font-display font-bold text-white tracking-tight">
+            The Ultimate Preference Tier Board
+          </h2>
+          <p class="text-xs sm:text-sm text-slate-400">
+            Rank tastes, hobbies, and games all on the same definitive board. Drag or click items to rank!
+          </p>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <button onclick="resetTierListBoard()" class="px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-bold transition">
+            Reset Board
+          </button>
+          <button onclick="celebrateTierRanking()" class="px-4 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 text-xs font-bold transition shadow-lg shadow-amber-500/20 flex items-center gap-1.5">
+            <span>✨</span> Lock In Tiers
+          </button>
+        </div>
+      </div>
+
+      <!-- Add Custom Item Input -->
+      <div class="glass-card rounded-2xl p-4 border border-white/5 flex flex-wrap items-center gap-3">
+        <span class="text-xs font-mono text-slate-400">Add Item to Pool:</span>
+        <input type="text" id="custom-tier-name" placeholder="e.g. Sourdough Baking, Cyberpunk 2077..." class="bg-slate-900 border border-white/10 rounded-xl px-3.5 py-1.5 text-xs text-white flex-grow max-w-sm focus:outline-none focus:border-amber-500">
+        <select id="custom-tier-icon" class="bg-slate-900 border border-white/10 rounded-xl px-3 py-1.5 text-xs text-white">
+          <option value="🍕">🍕 Flavor</option>
+          <option value="🎮">🎮 Gaming</option>
+          <option value="🎨">🎨 Hobby</option>
+          <option value="🎵">🎵 Music</option>
+          <option value="🎬">🎬 Media</option>
+        </select>
+        <button onclick="addCustomTierItem()" class="px-4 py-1.5 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 border border-amber-500/50 text-amber-300 text-xs font-bold transition">
+          + Add to Pool
+        </button>
+      </div>
+
+      <!-- Tier Slots S, A, B, C, D -->
+      <div class="space-y-2.5 max-w-5xl mx-auto">
+        
+        <!-- S Tier -->
+        <div class="flex rounded-2xl overflow-hidden glass-card border border-red-500/30 shadow-lg">
+          <div class="w-16 sm:w-20 bg-gradient-to-br from-red-600 to-rose-600 text-white font-display font-black text-2xl sm:text-3xl flex items-center justify-center flex-shrink-0">
+            S
+          </div>
+          <div id="tier-slot-S" class="tier-slot flex-grow p-3 flex flex-wrap gap-2 items-center bg-red-950/20 min-h-[72px]" ondragover="allowDrop(event)" ondragleave="dragLeave(event)" ondrop="dropTierItem(event, 'S')">
+            <!-- Items drop here -->
+          </div>
+        </div>
+
+        <!-- A Tier -->
+        <div class="flex rounded-2xl overflow-hidden glass-card border border-orange-500/30 shadow-lg">
+          <div class="w-16 sm:w-20 bg-gradient-to-br from-orange-500 to-amber-600 text-white font-display font-black text-2xl sm:text-3xl flex items-center justify-center flex-shrink-0">
+            A
+          </div>
+          <div id="tier-slot-A" class="tier-slot flex-grow p-3 flex flex-wrap gap-2 items-center bg-orange-950/20 min-h-[72px]" ondragover="allowDrop(event)" ondragleave="dragLeave(event)" ondrop="dropTierItem(event, 'A')"></div>
+        </div>
+
+        <!-- B Tier -->
+        <div class="flex rounded-2xl overflow-hidden glass-card border border-yellow-500/30 shadow-lg">
+          <div class="w-16 sm:w-20 bg-gradient-to-br from-yellow-500 to-amber-500 text-slate-950 font-display font-black text-2xl sm:text-3xl flex items-center justify-center flex-shrink-0">
+            B
+          </div>
+          <div id="tier-slot-B" class="tier-slot flex-grow p-3 flex flex-wrap gap-2 items-center bg-yellow-950/20 min-h-[72px]" ondragover="allowDrop(event)" ondragleave="dragLeave(event)" ondrop="dropTierItem(event, 'B')"></div>
+        </div>
+
+        <!-- C Tier -->
+        <div class="flex rounded-2xl overflow-hidden glass-card border border-emerald-500/30 shadow-lg">
+          <div class="w-16 sm:w-20 bg-gradient-to-br from-emerald-500 to-teal-600 text-white font-display font-black text-2xl sm:text-3xl flex items-center justify-center flex-shrink-0">
+            C
+          </div>
+          <div id="tier-slot-C" class="tier-slot flex-grow p-3 flex flex-wrap gap-2 items-center bg-emerald-950/20 min-h-[72px]" ondragover="allowDrop(event)" ondragleave="dragLeave(event)" ondrop="dropTierItem(event, 'C')"></div>
+        </div>
+
+        <!-- D Tier -->
+        <div class="flex rounded-2xl overflow-hidden glass-card border border-slate-600/30 shadow-lg">
+          <div class="w-16 sm:w-20 bg-gradient-to-br from-slate-600 to-slate-800 text-slate-300 font-display font-black text-2xl sm:text-3xl flex items-center justify-center flex-shrink-0">
+            D
+          </div>
+          <div id="tier-slot-D" class="tier-slot flex-grow p-3 flex flex-wrap gap-2 items-center bg-slate-900/40 min-h-[72px]" ondragover="allowDrop(event)" ondragleave="dragLeave(event)" ondrop="dropTierItem(event, 'D')"></div>
+        </div>
+
+      </div>
+
+      <!-- Unranked Pool -->
+      <div class="glass-card rounded-3xl p-5 border border-white/10 max-w-5xl mx-auto space-y-3">
+        <div class="flex items-center justify-between">
+          <h4 class="font-display font-bold text-sm text-white flex items-center gap-2">
+            <span>📦</span> Unranked Item Stash (Click badge to cycle tier or drag into row)
+          </h4>
+          <span id="tier-pool-counter" class="text-xs font-mono text-slate-400">8 Items Unranked</span>
+        </div>
+        <div id="tier-unranked-pool" class="flex flex-wrap gap-2.5 min-h-[80px] p-4 rounded-2xl bg-slate-900/80 border-2 border-dashed border-white/10" ondragover="allowDrop(event)" ondragleave="dragLeave(event)" ondrop="dropTierItem(event, 'unranked')">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+
+    </section>
+
+    <!-- =========================================================================
+         TAB 4: THE PREFERENCE QUIZ & PERSONALITY MATCHER
+         ========================================================================= -->
+    <section id="tab-quiz" class="hidden space-y-6">
+      
+      <div class="glass-card rounded-3xl p-6 sm:p-8 border border-pink-500/20 max-w-3xl mx-auto space-y-6">
+        
+        <!-- Quiz Header -->
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-white/10 pb-4">
+          <div>
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-pink-500/10 border border-pink-500/30 text-pink-300 text-xs font-mono mb-2">
+              <span>🎯</span> 7-STAGE LIFESTYLE COHESION TEST
+            </div>
+            <h2 class="text-2xl font-display font-bold text-white">Find Your Authentic Archetype</h2>
+          </div>
+          <div class="text-right">
+            <span class="text-xs font-mono text-slate-400 block">Progress</span>
+            <span id="quiz-progress-text" class="text-sm font-mono font-bold text-pink-400">Question 1 / 7</span>
+          </div>
+        </div>
+
+        <!-- Progress Bar -->
+        <div class="w-full h-2 rounded-full bg-slate-800 overflow-hidden">
+          <div id="quiz-progress-bar" class="h-full bg-gradient-to-r from-pink-500 to-purple-600 transition-all duration-300" style="width: 14%;"></div>
+        </div>
+
+        <!-- Question Body Area -->
+        <div id="quiz-body" class="space-y-6 py-2">
+          
+          <h3 id="quiz-question-title" class="text-lg sm:text-xl font-display font-semibold text-white leading-snug">
+            It is a free Saturday afternoon. What does your perfect 3-hour block look like?
+          </h3>
+
+          <div id="quiz-options-container" class="space-y-3">
+            <!-- Populated dynamically -->
+          </div>
+
+        </div>
+
+        <!-- Result Box (Hidden until finish) -->
+        <div id="quiz-result-container" class="hidden space-y-6 text-center py-6">
+          <div class="w-20 h-20 mx-auto rounded-3xl bg-gradient-to-tr from-pink-500 via-purple-600 to-orange-500 flex items-center justify-center text-4xl shadow-xl shadow-pink-500/30 animate-bounce">
+            👑
+          </div>
+          <div class="space-y-2">
+            <span class="text-xs font-mono font-bold uppercase text-purple-400">Your Discovered Archetype</span>
+            <h3 id="quiz-result-title" class="text-2xl sm:text-3xl font-display font-bold text-white">
+              The Cozy Virtual Gastronome
+            </h3>
+            <p id="quiz-result-desc" class="text-sm text-slate-300 max-w-md mx-auto leading-relaxed">
+              You balance intricate virtual world-building with cozy culinary masterpieces. You appreciate detail, slow living, and deep atmospheric flavor profiles.
+            </p>
+          </div>
+
+          <div class="p-4 rounded-2xl bg-slate-900/90 border border-white/10 max-w-md mx-auto text-left space-y-2">
+            <span class="text-[11px] font-mono font-bold text-amber-400 uppercase">🌟 Recommended Next Experience:</span>
+            <p id="quiz-result-rec" class="text-xs text-slate-200">
+              Cook a rich homemade French onion soup, grab your Switch, and spend an evening building your island paradise to ambient rain.
+            </p>
+          </div>
+
+          <button onclick="restartQuiz()" class="px-6 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold transition">
+            🔄 Retake Quiz
+          </button>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- =========================================================================
+         TAB 5: FRIEND COMPATIBILITY TEST / DUOS
+         ========================================================================= -->
+    <section id="tab-compatibility" class="hidden space-y-6">
+      
+      <div class="glass-card rounded-3xl p-6 sm:p-8 border border-emerald-500/20 max-w-4xl mx-auto space-y-6">
+        
+        <div>
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-xs font-mono mb-2">
+            <span>💞</span> SENSORY & GAMING DUO CALCULATOR
+          </div>
+          <h2 class="text-2xl sm:text-3xl font-display font-bold text-white tracking-tight">
+            Friend Compatibility Radar
+          </h2>
+          <p class="text-xs sm:text-sm text-slate-400">
+            Compare your favorite foods, hobbies, and games directly against a friend or rival to discover your mutual resonance score!
+          </p>
+        </div>
+
+        <!-- 2 Players Side by Side -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          
+          <!-- Player 1 (You) -->
+          <div class="glass-card rounded-2xl p-5 border border-purple-500/30 space-y-4">
+            <div class="flex items-center justify-between border-b border-white/5 pb-2">
+              <span class="font-display font-bold text-sm text-purple-300">Player 1 (You)</span>
+              <span class="text-[10px] font-mono text-slate-400">Auto-filled</span>
+            </div>
+
+            <div class="space-y-3 text-xs font-mono">
+              <div>
+                <span class="text-orange-400 block text-[10px]">#1 Flavor:</span>
+                <input id="duo-p1-flavor" readonly class="w-full bg-slate-900 border border-white/5 rounded-xl px-3 py-2 text-white text-xs">
+              </div>
+              <div>
+                <span class="text-emerald-400 block text-[10px]">#1 Hobby:</span>
+                <input id="duo-p1-hobby" readonly class="w-full bg-slate-900 border border-white/5 rounded-xl px-3 py-2 text-white text-xs">
+              </div>
+              <div>
+                <span class="text-purple-400 block text-[10px]">#1 Video Game:</span>
+                <input id="duo-p1-game" readonly class="w-full bg-slate-900 border border-white/5 rounded-xl px-3 py-2 text-white text-xs">
+              </div>
+            </div>
+          </div>
+
+          <!-- Player 2 (Friend) -->
+          <div class="glass-card rounded-2xl p-5 border border-cyan-500/30 space-y-4">
+            <div class="flex items-center justify-between border-b border-white/5 pb-2">
+              <span class="font-display font-bold text-sm text-cyan-300">Player 2 (Friend's Picks)</span>
+              <button onclick="randomizeFriendPicks()" class="text-[10px] font-mono text-cyan-400 hover:underline">🎲 Random Friend</button>
+            </div>
+
+            <div class="space-y-3 text-xs font-mono">
+              <div>
+                <span class="text-orange-400 block text-[10px]">Friend's Flavor:</span>
+                <select id="duo-p2-flavor" class="w-full bg-slate-900 border border-white/10 rounded-xl px-3 py-2 text-white text-xs focus:outline-none focus:border-cyan-500">
+                  <option value="Spicy Garlic Ramen">🍜 Spicy Garlic Ramen</option>
+                  <option value="Sweet Mango Sticky Rice">🥭 Sweet Mango Sticky Rice</option>
+                  <option value="Truffle Parmesan Fries">🍟 Truffle Parmesan Fries</option>
+                  <option value="Hot Honey Bacon Pizza">🍕 Hot Honey Bacon Pizza</option>
+                  <option value="Dark Salted Caramel Tart">🍫 Dark Salted Caramel Tart</option>
+                </select>
+              </div>
+              <div>
+                <span class="text-emerald-400 block text-[10px]">Friend's Hobby:</span>
+                <select id="duo-p2-hobby" class="w-full bg-slate-900 border border-white/10 rounded-xl px-3 py-2 text-white text-xs focus:outline-none focus:border-cyan-500">
+                  <option value="Night Urban Photography">📸 Night Urban Photography</option>
+                  <option value="Cooking Gourmet Feasts">🍳 Cooking Gourmet Feasts</option>
+                  <option value="Creative Code & Web Dev">💻 Creative Code & Web Dev</option>
+                  <option value="Mountain Trail Hiking">🥾 Mountain Trail Hiking</option>
+                  <option value="Playing Guitar / Synth">🎸 Playing Guitar / Synth</option>
+                </select>
+              </div>
+              <div>
+                <span class="text-purple-400 block text-[10px]">Friend's Video Game:</span>
+                <select id="duo-p2-game" class="w-full bg-slate-900 border border-white/10 rounded-xl px-3 py-2 text-white text-xs focus:outline-none focus:border-cyan-500">
+                  <option value="Elden Ring / Souls">⚔️ Elden Ring / Souls</option>
+                  <option value="Minecraft / Sandbox">🧱 Minecraft / Sandbox</option>
+                  <option value="Valorant / Tact FPS">🎯 Valorant / Tact FPS</option>
+                  <option value="Stardew Valley / Farming">🌾 Stardew Valley / Farming</option>
+                  <option value="Zelda: Tears of the Kingdom">🗡️ Zelda TOTK</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Calculate Button -->
+        <div class="text-center pt-2">
+          <button onclick="calculateDuoMatch()" class="px-8 py-3 rounded-2xl bg-gradient-to-r from-emerald-500 via-cyan-500 to-purple-600 text-white font-display font-bold text-sm shadow-xl shadow-cyan-500/20 hover:scale-105 active:scale-95 transition-all">
+            ✨ Calculate Mutual Resonance
+          </button>
+        </div>
+
+        <!-- Mutual Result Area -->
+        <div id="duo-result-card" class="hidden glass-card rounded-2xl p-6 border border-white/10 text-center space-y-3">
+          <div class="flex items-center justify-center gap-2">
+            <span class="text-3xl font-display font-black text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400" id="duo-score-text">
+              88% COMPATIBILITY
+            </span>
+          </div>
+          <h4 id="duo-status-title" class="font-display font-bold text-lg text-white">Legendary Co-Op Partners</h4>
+          <p id="duo-status-desc" class="text-xs text-slate-300 max-w-lg mx-auto leading-relaxed">
+            Your tastes complement each other cleanly. One brings tactical focus while the other handles the late-night snack runs and atmospheric playlist!
+          </p>
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+  <div id="passport-modal" class="fixed inset-0 z-50 bg-black/70 backdrop-blur-md hidden flex items-center justify-center p-4">
+    <div class="glass-card bg-[#0b101d] rounded-3xl max-w-md w-full p-6 border-2 border-purple-500/40 shadow-2xl space-y-4">
+      <div class="flex items-center justify-between border-b border-white/10 pb-3">
+        <h3 class="font-display font-bold text-base text-white flex items-center gap-2">
+          <span>📇</span> Preference Passport Export
+        </h3>
+        <button onclick="closePassportModal()" class="w-8 h-8 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold flex items-center justify-center text-xs">
+          ✕
+        </button>
+      </div>
+
+      <div class="p-4 rounded-2xl bg-slate-900 border border-white/5 space-y-2 text-xs font-mono">
+        <p class="text-slate-400">Shareable Summary:</p>
+        <div id="passport-export-text" class="text-slate-200 select-all p-3 rounded-xl bg-slate-950/80 border border-white/10 whitespace-pre-line text-[11px] leading-relaxed">
+        </div>
+      </div>
+
+      <div class="flex gap-2">
+        <button onclick="copyExportText()" class="flex-1 py-2.5 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-bold text-xs shadow-lg transition active:scale-95">
+          📋 Copy to Clipboard
+        </button>
+        <button onclick="closePassportModal()" class="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold text-xs transition">
+          Done
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="app-toast" class="fixed bottom-6 right-6 z-50 glass-card border border-purple-500/40 shadow-2xl px-4 py-3 rounded-2xl flex items-center gap-3 transform translate-y-28 opacity-0 transition-all duration-300">
+    <span id="toast-icon" class="text-xl">✨</span>
+    <span id="toast-text" class="text-xs font-mono font-bold text-white">Saved</span>
+  </div>
+
+  <!-- Footer -->
+  <footer class="glass-card border-t border-white/5 py-4 px-4 text-center text-xs text-slate-500 font-mono mt-auto">
+    My Preference DNA &bull; Flavor, Play & Passion Game Engine
+  </footer>
+
+  <script>
+    /* =========================================================================
+       1. WEB AUDIO SYNTHESIZER (No external audio assets)
+       ========================================================================= */
+    class AudioEngine {
+      constructor() {
+        this.ctx = null;
+        this.enabled = true;
+      }
+
+      init() {
+        if (!this.ctx) {
+          const AudioContext = window.AudioContext || window.webkitAudioContext;
+          if (AudioContext) {
+            this.ctx = new AudioContext();
+          }
+        }
+        if (this.ctx && this.ctx.state === 'suspended') {
+          this.ctx.resume();
+        }
+      }
+
+      // Crisp user click
+      playClick(freq = 440) {
+        if (!this.enabled) return;
+        this.init();
+        if (!this.ctx) return;
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(freq, this.ctx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(freq * 1.6, this.ctx.currentTime + 0.05);
+        gain.gain.setValueAtTime(0.1, this.ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.05);
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+        osc.start();
+        osc.stop(this.ctx.currentTime + 0.05);
+      }
+
+      // Archetype harmonic chime
+      playChime(notes = [329.63, 440.00, 554.37, 659.25]) {
+        if (!this.enabled) return;
+        this.init();
+        if (!this.ctx) return;
+        const now = this.ctx.currentTime;
+        notes.forEach((freq, i) => {
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(freq, now + i * 0.07);
+          gain.gain.setValueAtTime(0.08, now + i * 0.07);
+          gain.gain.exponentialRampToValueAtTime(0.0001, now + i * 0.07 + 0.5);
+          osc.connect(gain);
+          gain.connect(this.ctx.destination);
+          osc.start(now + i * 0.07);
+          osc.stop(now + i * 0.07 + 0.5);
+        });
+      }
+
+      // Victory flourish
+      playFanfare() {
+        if (!this.enabled) return;
+        this.init();
+        if (!this.ctx) return;
+        const notes = [440, 554.37, 659.25, 880];
+        const now = this.ctx.currentTime;
+        notes.forEach((freq, idx) => {
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(freq, now + idx * 0.09);
+          gain.gain.setValueAtTime(0.12, now + idx * 0.09);
+          gain.gain.exponentialRampToValueAtTime(0.0001, now + idx * 0.09 + 0.6);
+          osc.connect(gain);
+          gain.connect(this.ctx.destination);
+          osc.start(now + idx * 0.09);
+          osc.stop(now + idx * 0.09 + 0.6);
+        });
+      }
+    }
+
+    const sound = new AudioEngine();
+
+    function toggleSound() {
+      sound.enabled = !sound.enabled;
+      const indicator = document.getElementById('sound-indicator');
+      const label = document.getElementById('sound-label');
+      if (sound.enabled) {
+        indicator.className = 'w-2 h-2 rounded-full bg-emerald-400 animate-pulse';
+        label.innerText = 'Audio: ON';
+        showToast('Synthesizer Audio Enabled', '🔊');
+        sound.playClick(600);
+      } else {
+        indicator.className = 'w-2 h-2 rounded-full bg-slate-500';
+        label.innerText = 'Audio: OFF';
+        showToast('Synthesizer Audio Muted', '🔇');
+      }
+    }
+  </script>
+
+  <script>
+    /* =========================================================================
+       2. USER PREFERENCES STATE & ARCHE-SYNTHESIS
+       ========================================================================= */
+    const STORAGE_KEY = 'my_preference_dna_v1';
+
+    let userProfile = {
+      alias: 'SensorySeeker',
+      flavor: 'Spicy Garlic Ramen',
+      flavorIcon: '🍜',
+      hobby: 'Night Urban Photography',
+      hobbyIcon: '📸',
+      game: 'Elden Ring / Souls',
+      gameIcon: '⚔️',
+      music: 'Lo-Fi Vinyl Chill & Rain'
+    };
+
+    // Archetype definitions based on combination of preferences
+    function computeArchetype() {
+      const g = userProfile.game.toLowerCase();
+      const f = userProfile.flavor.toLowerCase();
+      const h = userProfile.hobby.toLowerCase();
+
+      if (g.includes('souls') || g.includes('elden') || f.includes('spicy')) {
+        return {
+          title: 'THE ADRENALINE GOURMAND',
+          quote: `"Thrives on high-stakes boss battles and intense spicy flavors, balanced by creative offline exploration."`,
+          coherence: '98.4% RESONANCE'
+        };
+      } else if (g.includes('minecraft') || g.includes('stardew') || h.includes('cooking')) {
+        return {
+          title: 'THE COZY HARVEST ARCHITECT',
+          quote: `"Believes happiness is freshly baked bread, rich lo-fi chords, and relaxing world-building."`,
+          coherence: '96.2% RESONANCE'
+        };
+      } else if (h.includes('code') || g.includes('fps') || g.includes('tact')) {
+        return {
+          title: 'THE HIGH-APM TACTICIAN',
+          quote: `"Precision over everything—whether landing clean headshots, debugging algorithms, or brewing pour-over coffee."`,
+          coherence: '97.1% RESONANCE'
+        };
+      } else {
+        return {
+          title: 'THE CREATIVE SENSORY GURU',
+          quote: `"An eclectic collector of vibrant flavor notes, rich artistic pursuits, and cinematic game universes."`,
+          coherence: '95.5% RESONANCE'
+        };
+      }
+    }
+
+    function renderTradingCard() {
+      const arch = computeArchetype();
+
+      document.getElementById('card-player-alias').innerText = userProfile.alias;
+      document.getElementById('card-archetype-chip').innerText = arch.title;
+      document.getElementById('card-persona-quote').innerText = arch.quote;
+      document.getElementById('card-coherence').innerText = arch.coherence;
+
+      // Badges & values
+      document.getElementById('badge-flavor').innerText = userProfile.flavor;
+      document.getElementById('badge-hobby').innerText = userProfile.hobby;
+      document.getElementById('badge-game').innerText = userProfile.game;
+
+      document.getElementById('card-val-flavor').innerText = userProfile.flavor;
+      document.getElementById('card-icon-flavor').innerText = userProfile.flavorIcon;
+
+      document.getElementById('card-val-hobby').innerText = userProfile.hobby;
+      document.getElementById('card-icon-hobby').innerText = userProfile.hobbyIcon;
+
+      document.getElementById('card-val-game').innerText = userProfile.game;
+      document.getElementById('card-icon-game').innerText = userProfile.gameIcon;
+
+      document.getElementById('card-music-note').innerText = `🎧 ${userProfile.music}`;
+      document.getElementById('card-avatar').innerText = userProfile.flavorIcon;
+
+      // Update Duo P1 inputs
+      const p1f = document.getElementById('duo-p1-flavor');
+      const p1h = document.getElementById('duo-p1-hobby');
+      const p1g = document.getElementById('duo-p1-game');
+      if (p1f) p1f.value = userProfile.flavor;
+      if (p1h) p1h.value = userProfile.hobby;
+      if (p1g) p1g.value = userProfile.game;
+    }
+
+    function setFavorite(category, value, icon) {
+      sound.playClick(category === 'flavor' ? 440 : category === 'hobby' ? 520 : 600);
+      userProfile[category] = value;
+      userProfile[`${category}Icon`] = icon;
+      renderTradingCard();
+      showToast(`Updated #1 ${category.toUpperCase()}`, icon);
+    }
+
+    function applyCustomFavorite(category) {
+      const input = document.getElementById(`custom-${category}-input`);
+      const val = input.value.trim();
+      if (!val) return;
+      sound.playClick(580);
+      userProfile[category] = val;
+      const defaultIcon = category === 'flavor' ? '🍕' : category === 'hobby' ? '🎨' : '🎮';
+      userProfile[`${category}Icon`] = defaultIcon;
+      input.value = '';
+      renderTradingCard();
+      showToast(`Custom ${category} pinned!`, '📌');
+    }
+
+    function updateMusicVibe(val) {
+      sound.playClick(500);
+      userProfile.music = val;
+      renderTradingCard();
+    }
+
+    function updateAlias(val) {
+      userProfile.alias = val.trim() || 'SensorySeeker';
+      renderTradingCard();
+    }
+
+    function randomizeFavorites() {
+      sound.playChime([350, 440, 520, 650]);
+      const flavors = [
+        { name: 'Spicy Garlic Ramen', icon: '🍜' },
+        { name: 'Sweet Mango Sticky Rice', icon: '🥭' },
+        { name: 'Truffle Parmesan Fries', icon: '🍟' },
+        { name: 'Hot Honey Bacon Pizza', icon: '🍕' },
+        { name: 'Matcha Strawberry Boba', icon: '🍵' },
+        { name: 'Dark Salted Caramel Tart', icon: '🍫' }
+      ];
+      const hobbies = [
+        { name: 'Night Urban Photography', icon: '📸' },
+        { name: 'Cooking Gourmet Feasts', icon: '🍳' },
+        { name: 'Creative Code & Web Dev', icon: '💻' },
+        { name: 'Mountain Trail Hiking', icon: '🥾' },
+        { name: 'Playing Guitar / Synth', icon: '🎸' },
+        { name: 'Digital Illustration & Art', icon: '🎨' }
+      ];
+      const games = [
+        { name: 'Elden Ring / Souls', icon: '⚔️' },
+        { name: 'Zelda: Tears of the Kingdom', icon: '🗡️' },
+        { name: 'Minecraft / Sandbox', icon: '🧱' },
+        { name: 'Valorant / Tact FPS', icon: '🎯' },
+        { name: 'Stardew Valley / Farming', icon: '🌾' },
+        { name: 'Baldur’s Gate 3', icon: '🎲' }
+      ];
+
+      const rf = flavors[Math.floor(Math.random() * flavors.length)];
+      const rh = hobbies[Math.floor(Math.random() * hobbies.length)];
+      const rg = games[Math.floor(Math.random() * games.length)];
+
+      userProfile.flavor = rf.name;
+      userProfile.flavorIcon = rf.icon;
+      userProfile.hobby = rh.name;
+      userProfile.hobbyIcon = rh.icon;
+      userProfile.game = rg.name;
+      userProfile.gameIcon = rg.icon;
+
+      renderTradingCard();
+      showToast('Random Fusion Re-Generated!', '🎲');
+    }
+
+    function saveProfile() {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(userProfile));
+        sound.playFanfare();
+        if (window.confetti) {
+          window.confetti({ particleCount: 50, spread: 60, origin: { y: 0.6 } });
+        }
+        showToast('Profile Saved to Local Storage!', '💾');
+      } catch (e) {
+        showToast('Saved to memory (Storage restricted)', '💾');
+      }
+    }
+
+    function loadSavedProfile() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (raw) {
+          userProfile = { ...userProfile, ...JSON.parse(raw) };
+        }
+      } catch (e) {}
+      renderTradingCard();
+    }
+
+    function playArchetypeSound() {
+      sound.playChime([392.00, 493.88, 587.33, 783.99]);
+      showToast('Playing Archetype Harmony Chime', '🎵');
+    }
+
+    function shareMyPassportModal() {
+      sound.playChime();
+      const arch = computeArchetype();
+      const text = `🧬 MY PREFERENCE DNA CARD
+Player Tag: ${userProfile.alias}
+Archetype: ${arch.title}
+🍕 #1 Flavor: ${userProfile.flavorIcon} ${userProfile.flavor}
+🎨 #1 Hobby: ${userProfile.hobbyIcon} ${userProfile.hobby}
+🎮 #1 Game: ${userProfile.gameIcon} ${userProfile.game}
+🎧 Soundtrack: ${userProfile.music}
+Coherence: ${arch.coherence}`;
+
+      document.getElementById('passport-export-text').innerText = text;
+      document.getElementById('passport-modal').classList.remove('hidden');
+    }
+
+    function closePassportModal() {
+      sound.playClick(400);
+      document.getElementById('passport-modal').classList.add('hidden');
+    }
+
+    function copyExportText() {
+      const text = document.getElementById('passport-export-text').innerText;
+      copyToClipboard(text);
+      sound.playFanfare();
+      showToast('Export Text Copied to Clipboard!', '📋');
+    }
+  </script>
+
+  <script>
+    /* =========================================================================
+       3. PREFERENCE FACE-OFF TOURNAMENT ENGINE
+       ========================================================================= */
+    const FACEOFF_MATCHES = [
+      {
+        type: 'CROSS-CATEGORY SHOWDOWN',
+        cardA: {
+          icon: '🎮',
+          type: 'GAMING ESCAPE',
+          title: '100-Hour Open World RPG Journey',
+          desc: 'Endless dungeons, ancient hidden lore, and crafting god-tier weapons across boundless fantasy continents.',
+          votes: 1480,
+          pct: 62
+        },
+        cardB: {
+          icon: '🍜',
+          type: 'GASTRONOMY BLISS',
+          title: 'Midnight Authentic Tokyo Ramen Crawl',
+          desc: 'Rich boiling tonkotsu broth with flame-torched pork belly and marinated eggs at a rain-drenched wooden counter.',
+          votes: 902,
+          pct: 38
+        }
+      },
+      {
+        type: 'TASTE POLARITY',
+        cardA: {
+          icon: '🌶️',
+          type: 'INTENSE UMAMI & HEAT',
+          title: 'Sizzling Nashville Hot Chicken with Pickles',
+          desc: 'Cayenne and brown sugar glazed crispy chicken tender, buttery brioche bun, and cool crisp dill pickles.',
+          votes: 1620,
+          pct: 54
+        },
+        cardB: {
+          icon: '🍨',
+          type: 'CREAMY SWEET INDULGENCE',
+          title: 'Brown Butter Vanilla Gelato with Toasted Brioche',
+          desc: 'Nutty caramelized brown butter churned with sea salt and Madagascar vanilla beans over warm pastries.',
+          votes: 1380,
+          pct: 46
+        }
+      },
+      {
+        type: 'HOBBY VS GAMING',
+        cardA: {
+          icon: '📸',
+          type: 'REAL WORLD PASSION',
+          title: 'Golden Hour Street & Landscape Photography',
+          desc: 'Hunting raw natural light, framing breathtaking geometry, and freezing split-second moments forever.',
+          votes: 1120,
+          pct: 42
+        },
+        cardB: {
+          icon: '⚔️',
+          type: 'VIRTUAL MASTERY',
+          title: 'Conquering a Brutal Souls Boss Solo',
+          desc: '30 attempts of adrenaline, learning attack delays, frame-perfect parries, and pure triumphant ecstasy.',
+          votes: 1540,
+          pct: 58
+        }
+      },
+      {
+        type: 'COZY VS HIGH OCTANE',
+        cardA: {
+          icon: '🌾',
+          type: 'RELAXED LIFESTYLE',
+          title: 'Rainy Day Sourdough Baking & Stardew Valley',
+          desc: 'Smell of fresh crust baking in the oven while tending to virtual pumpkins with lo-fi beats playing.',
+          votes: 1810,
+          pct: 67
+        },
+        cardB: {
+          icon: '🏎️',
+          type: 'HIGH SPEED ADRENALINE',
+          title: 'Late Night High-BPM Racing & Espresso',
+          desc: 'Blasting synthwave at 140 BPM, high-speed drifts, double espresso shots, and neon city lights.',
+          votes: 890,
+          pct: 33
+        }
+      }
+    ];
+
+    let currentFaceOffIndex = 0;
+    let faceOffVotesTally = 0;
+    let faceOffStreakCount = 0;
+
+    function renderFaceOffMatch() {
+      const match = FACEOFF_MATCHES[currentFaceOffIndex];
+      if (!match) return;
+
+      document.getElementById('faceoff-category-tag').innerText = match.type;
+      document.getElementById('faceoff-counter').innerText = `Dilemma ${currentFaceOffIndex + 1} of ${FACEOFF_MATCHES.length}`;
+
+      // Card A
+      document.getElementById('fo-icon-a').innerText = match.cardA.icon;
+      document.getElementById('fo-type-a').innerText = match.cardA.type;
+      document.getElementById('fo-title-a').innerText = match.cardA.title;
+      document.getElementById('fo-desc-a').innerText = match.cardA.desc;
+      document.getElementById('fo-pct-a').innerText = `${match.cardA.pct}%`;
+      document.getElementById('fo-bar-a').style.width = `${match.cardA.pct}%`;
+      document.getElementById('fo-votes-a').innerText = match.cardA.votes.toLocaleString();
+
+      // Card B
+      document.getElementById('fo-icon-b').innerText = match.cardB.icon;
+      document.getElementById('fo-type-b').innerText = match.cardB.type;
+      document.getElementById('fo-title-b').innerText = match.cardB.title;
+      document.getElementById('fo-desc-b').innerText = match.cardB.desc;
+      document.getElementById('fo-pct-b').innerText = `${match.cardB.pct}%`;
+      document.getElementById('fo-bar-b').style.width = `${match.cardB.pct}%`;
+      document.getElementById('fo-votes-b').innerText = match.cardB.votes.toLocaleString();
+
+      // Reset visibilities
+      document.getElementById('fo-stats-a').classList.add('hidden');
+      document.getElementById('fo-stats-b').classList.add('hidden');
+      document.getElementById('faceoff-next-container').classList.add('hidden');
+
+      document.getElementById('faceoff-card-a').classList.remove('border-purple-500', 'bg-purple-950/40', 'opacity-50');
+      document.getElementById('faceoff-card-b').classList.remove('border-orange-500', 'bg-orange-950/40', 'opacity-50');
+    }
+
+    function voteFaceOff(choice) {
+      sound.playChime();
+      faceOffVotesTally++;
+      faceOffStreakCount++;
+
+      document.getElementById('faceoff-total-votes').innerText = faceOffVotesTally;
+      document.getElementById('faceoff-streak').innerText = `${faceOffStreakCount} 🔥`;
+
+      document.getElementById('fo-stats-a').classList.remove('hidden');
+      document.getElementById('fo-stats-b').classList.remove('hidden');
+      document.getElementById('faceoff-next-container').classList.remove('hidden');
+
+      const cardA = document.getElementById('faceoff-card-a');
+      const cardB = document.getElementById('faceoff-card-b');
+
+      if (choice === 'A') {
+        cardA.classList.add('border-purple-500', 'bg-purple-950/30');
+        cardB.classList.add('opacity-50');
+      } else {
+        cardB.classList.add('border-orange-500', 'bg-orange-950/30');
+        cardA.classList.add('opacity-50');
+      }
+
+      if (faceOffStreakCount === 3 || faceOffStreakCount === 6) {
+        if (window.confetti) {
+          window.confetti({ particleCount: 40, spread: 50, origin: { y: 0.7 } });
+        }
+      }
+    }
+
+    function nextFaceOffMatch() {
+      sound.playClick(500);
+      currentFaceOffIndex = (currentFaceOffIndex + 1) % FACEOFF_MATCHES.length;
+      renderFaceOffMatch();
+    }
+  </script>
+
+  <script>
+    /* =========================================================================
+       4. PREFERENCE TIER LIST MAKER
+       ========================================================================= */
+    const DEFAULT_TIER_ITEMS = [
+      { id: 't1', name: 'Spicy Garlic Ramen', icon: '🍜', category: 'flavor' },
+      { id: 't2', name: 'Elden Ring / Souls', icon: '⚔️', category: 'game' },
+      { id: 't3', name: 'Night Street Photography', icon: '📸', category: 'hobby' },
+      { id: 't4', name: 'Hot Honey Bacon Pizza', icon: '🍕', category: 'flavor' },
+      { id: 't5', name: 'Minecraft Creative Mode', icon: '🧱', category: 'game' },
+      { id: 't6', name: 'Playing Acoustic Guitar', icon: '🎸', category: 'hobby' },
+      { id: 't7', name: 'Matcha Strawberry Boba', icon: '🍵', category: 'flavor' },
+      { id: 't8', name: 'Late Night Synthwave Drive', icon: '🎹', category: 'music' }
+    ];
+
+    let tierState = {
+      S: [],
+      A: [],
+      B: [],
+      C: [],
+      D: [],
+      unranked: []
+    };
+
+    function initTierBoard() {
+      tierState = { S: [], A: [], B: [], C: [], D: [], unranked: [] };
+      tierState.S.push(DEFAULT_TIER_ITEMS[0]);
+      tierState.A.push(DEFAULT_TIER_ITEMS[1]);
+      tierState.unranked = DEFAULT_TIER_ITEMS.slice(2);
+      renderTierBoard();
+    }
+
+    function renderTierBoard() {
+      ['S', 'A', 'B', 'C', 'D'].forEach(tier => {
+        const container = document.getElementById(`tier-slot-${tier}`);
+        container.innerHTML = tierState[tier].map(item => createTierBadge(item, tier)).join('');
+      });
+
+      const unrankedSlot = document.getElementById('tier-unranked-pool');
+      unrankedSlot.innerHTML = tierState.unranked.map(item => createTierBadge(item, 'unranked')).join('');
+
+      document.getElementById('tier-pool-counter').innerText = `${tierState.unranked.length} Items Unranked`;
+    }
+
+    function createTierBadge(item, currentTier) {
+      return `
+        <div id="tier-item-${item.id}" draggable="true" ondragstart="tierDragStart(event, '${item.id}')" class="group px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 border border-white/10 text-white text-xs font-semibold flex items-center gap-2 cursor-grab active:cursor-grabbing shadow-sm hover:scale-105 transition-all">
+          <span class="text-base">${item.icon}</span>
+          <span class="truncate max-w-[140px]">${item.name}</span>
+          <button onclick="cycleTierItem('${item.id}', '${currentTier}')" class="opacity-40 group-hover:opacity-100 hover:text-amber-400 text-[10px] font-mono ml-1" title="Cycle Tier">
+            ▲
+          </button>
+        </div>
+      `;
+    }
+
+    function cycleTierItem(itemId, currentTier) {
+      sound.playClick(520);
+      const tiers = ['unranked', 'S', 'A', 'B', 'C', 'D'];
+      const nextIdx = (tiers.indexOf(currentTier) + 1) % tiers.length;
+      const targetTier = tiers[nextIdx];
+
+      let found = null;
+      for (const t in tierState) {
+        const idx = tierState[t].findIndex(x => x.id === itemId);
+        if (idx !== -1) {
+          found = tierState[t].splice(idx, 1)[0];
+          break;
+        }
+      }
+      if (found) {
+        tierState[targetTier].push(found);
+        renderTierBoard();
+      }
+    }
+
+    function tierDragStart(e, itemId) {
+      e.dataTransfer.setData('text/plain', itemId);
+      sound.playClick(340);
+    }
+
+    function allowDrop(e) {
+      e.preventDefault();
+      e.currentTarget.classList.add('drag-over');
+    }
+
+    function dragLeave(e) {
+      e.currentTarget.classList.remove('drag-over');
+    }
+
+    function dropTierItem(e, targetTier) {
+      e.preventDefault();
+      e.currentTarget.classList.remove('drag-over');
+      const itemId = e.dataTransfer.getData('text/plain');
+      if (!itemId) return;
+
+      sound.playClick(620);
+      let found = null;
+      for (const t in tierState) {
+        const idx = tierState[t].findIndex(x => x.id === itemId);
+        if (idx !== -1) {
+          found = tierState[t].splice(idx, 1)[0];
+          break;
+        }
+      }
+      if (found) {
+        tierState[targetTier].push(found);
+        renderTierBoard();
+      }
+    }
+
+    function addCustomTierItem() {
+      const nameInput = document.getElementById('custom-tier-name');
+      const iconInput = document.getElementById('custom-tier-icon');
+      const name = nameInput.value.trim();
+      if (!name) return;
+
+      const newItem = {
+        id: 'c_' + Date.now(),
+        name: name,
+        icon: iconInput.value,
+        category: 'custom'
+      };
+
+      tierState.unranked.push(newItem);
+      nameInput.value = '';
+      sound.playClick(580);
+      renderTierBoard();
+      showToast(`Added "${name}" to unranked pool!`, newItem.icon);
+    }
+
+    function resetTierListBoard() {
+      sound.playClick(400);
+      initTierBoard();
+      showToast('Tier List Board Reset', '🔄');
+    }
+
+    function celebrateTierRanking() {
+      sound.playFanfare();
+      if (window.confetti) {
+        window.confetti({ particleCount: 60, spread: 70, origin: { y: 0.6 } });
+      }
+      showToast('Tiers Locked In & Saved!', '🏆');
+    }
+  </script>
+
+  <script>
+    /* =========================================================================
+       5. 7-STAGE LIFESTYLE & PREFERENCE QUIZ
+       ========================================================================= */
+    const QUIZ_QUESTIONS = [
+      {
+        question: "It is a free Saturday afternoon. What does your perfect 3-hour block look like?",
+        options: [
+          { text: "Simmering a rich homemade stew while listening to a podcast or lo-fi", archetype: "cozy" },
+          { text: "Grinding rank or overcoming a punishing boss in a demanding game", archetype: "hardcore" },
+          { text: "Exploring the city streets with a camera or notebook seeking cool aesthetics", archetype: "explorer" },
+          { text: "Tinkering on a creative code project, digital art, or synth jam", archetype: "creator" }
+        ]
+      },
+      {
+        question: "When ordering food or cooking, what flavor profile are you naturally hunting?",
+        options: [
+          { text: "Garlic, smoked chili, crisp texture, and deep rich umami", archetype: "hardcore" },
+          { text: "Comforting creamy broths, fresh baked bread, and mild herbs", archetype: "cozy" },
+          { text: "Complex fermented notes, foreign spices, and exotic street delicacies", archetype: "explorer" },
+          { text: "Vibrant sweet-and-sour balance, matcha, and artisan pastries", archetype: "creator" }
+        ]
+      },
+      {
+        question: "Which video game mechanic triggers the biggest rush of pure joy?",
+        options: [
+          { text: "Decorating a house, tending crops, and organizing cozy inventories", archetype: "cozy" },
+          { text: "Executing a frame-perfect parry or clutching a 1v3 round", archetype: "hardcore" },
+          { text: "Climbing a massive mountain peak to uncover an uncharted vista", archetype: "explorer" },
+          { text: "Experimenting with weird build combinations that break the game rules", archetype: "creator" }
+        ]
+      },
+      {
+        question: "Your headphones are on. What music track transports you into the zone?",
+        options: [
+          { text: "Rainy vinyl lo-fi hip hop with warm electric pianos", archetype: "cozy" },
+          { text: "High-voltage synthwave, industrial bass, or phonk beats", archetype: "hardcore" },
+          { text: "Ethereal movie scores and majestic orchestral brass", archetype: "explorer" },
+          { text: "Eclectic indie math-rock, funk, or complex Japanese fusion", archetype: "creator" }
+        ]
+      },
+      {
+        question: "Pick the ultimate aesthetic environment to spend an entire evening in:",
+        options: [
+          { text: "A sunlit wooden cottage greenhouse filled with plants and tea", archetype: "cozy" },
+          { text: "A high-rise neon cyberpunk room with triple monitors and RGB glow", archetype: "hardcore" },
+          { text: "A campfire under the mountain stars with a cast-iron skillet", archetype: "explorer" },
+          { text: "A cluttered vintage studio filled with retro consoles and sketchpads", archetype: "creator" }
+        ]
+      },
+      {
+        question: "A friend invites you to do something spontaneous. Which do you immediately accept?",
+        options: [
+          { text: "A night market food crawl testing 6 different street dishes", archetype: "explorer" },
+          { text: "An intense 4-hour LAN session or arcade speedrun tournament", archetype: "hardcore" },
+          { text: "Baking homemade pizzas and watching a Studio Ghibli marathon", archetype: "cozy" },
+          { text: "Browsing thrift stores for weird vinyl records and retro electronics", archetype: "creator" }
+        ]
+      },
+      {
+        question: "Ultimately, what is your core philosophy on hobbies and play?",
+        options: [
+          { text: "Comfort and decompression: life is stressful, leisure should be gentle", archetype: "cozy" },
+          { text: "Mastery and thrill: if it does not challenge me, I get bored quickly", archetype: "hardcore" },
+          { text: "Curiosity and horizon: there is always another flavor and place to discover", archetype: "explorer" },
+          { text: "Expression and craft: I want to leave behind something unique I built", archetype: "creator" }
+        ]
+      }
+    ];
+
+    let quizStep = 0;
+    let quizTallies = { cozy: 0, hardcore: 0, explorer: 0, creator: 0 };
+
+    function renderQuizStep() {
+      const q = QUIZ_QUESTIONS[quizStep];
+      if (!q) {
+        finishQuiz();
+        return;
+      }
+
+      document.getElementById('quiz-progress-text').innerText = `Question ${quizStep + 1} / ${QUIZ_QUESTIONS.length}`;
+      const pct = Math.round(((quizStep + 1) / QUIZ_QUESTIONS.length) * 100);
+      document.getElementById('quiz-progress-bar').style.width = `${pct}%`;
+
+      document.getElementById('quiz-question-title').innerText = q.question;
+
+      const optsContainer = document.getElementById('quiz-options-container');
+      optsContainer.innerHTML = q.options.map((opt, i) => `
+        <button onclick="chooseQuizOption('${opt.archetype}')" class="w-full text-left p-4 rounded-2xl bg-slate-900/80 hover:bg-slate-800 border border-white/5 hover:border-pink-500/40 text-xs sm:text-sm text-slate-200 transition-all flex items-center justify-between group">
+          <span>${opt.text}</span>
+          <span class="opacity-0 group-hover:opacity-100 text-pink-400 font-mono text-xs font-bold transition">&rarr;</span>
+        </button>
+      `).join('');
+    }
+
+    function chooseQuizOption(archetype) {
+      sound.playClick(440 + quizStep * 30);
+      quizTallies[archetype] = (quizTallies[archetype] || 0) + 1;
+      quizStep++;
+      if (quizStep < QUIZ_QUESTIONS.length) {
+        renderQuizStep();
+      } else {
+        finishQuiz();
+      }
+    }
+
+    function finishQuiz() {
+      sound.playFanfare();
+      document.getElementById('quiz-body').classList.add('hidden');
+      document.getElementById('quiz-result-container').classList.remove('hidden');
+
+      // Determine highest archetype
+      let topArchetype = 'cozy';
+      let highest = -1;
+      for (const key in quizTallies) {
+        if (quizTallies[key] > highest) {
+          highest = quizTallies[key];
+          topArchetype = key;
+        }
+      }
+
+      const resultsMap = {
+        cozy: {
+          title: 'The Atmospheric Cozy Crafter',
+          desc: 'You cherish comforting warmth, rich slow-cooked broths, lo-fi rhythms, and peaceful sandbox building.',
+          rec: 'Make a pot of hot spiced chai, wrap yourself in a blanket, and start a fresh farm in Stardew Valley or Animal Crossing.'
+        },
+        hardcore: {
+          title: 'The High-APM Adrenaline Titan',
+          desc: 'You crave high difficulty, frame-perfect parries, spicy smoked pepper sauces, and late-night competitive rushes.',
+          rec: 'Order extra-spicy garlic ramen, fire up Elden Ring or Sekiro, and take down a boss without summoning!'
+        },
+        explorer: {
+          title: 'The Nomadic Sensory Voyager',
+          desc: 'You are fueled by novel sensations, open-world horizon lines, foreign culinary spices, and photography.',
+          rec: 'Find an authentic street food joint in your city you have never tried, and spend the evening wandering with your camera.'
+        },
+        creator: {
+          title: 'The Eccentric Synthesizer Architect',
+          desc: 'You bridge tech and artistry, hunting unique flavor balances, generative code experiments, and eclectic indie games.',
+          rec: 'Build a quirky indie prototype or digital painting while sipping iced matcha and listening to vintage Japanese city pop.'
+        }
+      };
+
+      const res = resultsMap[topArchetype];
+      document.getElementById('quiz-result-title').innerText = res.title;
+      document.getElementById('quiz-result-desc').innerText = res.desc;
+      document.getElementById('quiz-result-rec').innerText = res.rec;
+
+      if (window.confetti) {
+        window.confetti({ particleCount: 70, spread: 70, origin: { y: 0.6 } });
+      }
+    }
+
+    function restartQuiz() {
+      sound.playClick(400);
+      quizStep = 0;
+      quizTallies = { cozy: 0, hardcore: 0, explorer: 0, creator: 0 };
+      document.getElementById('quiz-body').classList.remove('hidden');
+      document.getElementById('quiz-result-container').classList.add('hidden');
+      renderQuizStep();
+    }
+  </script>
+
+  <script>
+    /* =========================================================================
+       6. DUO & FRIEND COMPATIBILITY ENGINE
+       ========================================================================= */
+    function randomizeFriendPicks() {
+      sound.playClick(500);
+      const flavorSel = document.getElementById('duo-p2-flavor');
+      const hobbySel = document.getElementById('duo-p2-hobby');
+      const gameSel = document.getElementById('duo-p2-game');
+
+      flavorSel.selectedIndex = Math.floor(Math.random() * flavorSel.options.length);
+      hobbySel.selectedIndex = Math.floor(Math.random() * hobbySel.options.length);
+      gameSel.selectedIndex = Math.floor(Math.random() * gameSel.options.length);
+
+      showToast('Friend Picks Randomized!', '🎲');
+    }
+
+    function calculateDuoMatch() {
+      sound.playFanfare();
+      const p1Flavor = userProfile.flavor.toLowerCase();
+      const p1Hobby = userProfile.hobby.toLowerCase();
+      const p1Game = userProfile.game.toLowerCase();
+
+      const p2Flavor = document.getElementById('duo-p2-flavor').value.toLowerCase();
+      const p2Hobby = document.getElementById('duo-p2-hobby').value.toLowerCase();
+      const p2Game = document.getElementById('duo-p2-game').value.toLowerCase();
+
+      let score = 70; // baseline high compatibility
+
+      if (p1Flavor === p2Flavor) score += 12;
+      if (p1Hobby === p2Hobby) score += 10;
+      if (p1Game === p2Game) score += 12;
+
+      // Cross synergy bonuses
+      if ((p1Game.includes('souls') || p1Game.includes('elden')) && p2Flavor.includes('ramen')) score += 5;
+      if (p1Hobby.includes('cook') && p2Flavor.includes('pizza')) score += 5;
+
+      score = Math.min(score, 99);
+
+      const resultCard = document.getElementById('duo-result-card');
+      resultCard.classList.remove('hidden');
+
+      document.getElementById('duo-score-text').innerText = `${score}% MUTUAL RESONANCE`;
+
+      let title = "Legendary Co-Op Partners";
+      let desc = "Your tastes complement each other cleanly. One brings tactical focus while the other handles the late-night snack runs and atmospheric playlist!";
+
+      if (score >= 90) {
+        title = "Cosmic Twin Archetypes";
+        desc = "Incredible symmetry! You share identical palate instincts and game worlds. You two could effortlessly share a living space and Spotify queue.";
+      } else if (score < 75) {
+        title = "Dynamic Polar Contrasts";
+        desc = "Opposites attract! While one is conquering high-octane bosses, the other is relaxing with cozy crafts. You will constantly introduce each other to new passions.";
+      }
+
+      document.getElementById('duo-status-title').innerText = title;
+      document.getElementById('duo-status-desc').innerText = desc;
+
+      if (window.confetti) {
+        window.confetti({ particleCount: 50, spread: 60, origin: { y: 0.6 } });
+      }
+    }
+  </script>
+
+  <script>
+    /* =========================================================================
+       7. GLOBAL UI CONTROLS & UTILITIES
+       ========================================================================= */
+    function switchTab(tabId) {
+      sound.playClick(460);
+
+      const tabs = ['profile', 'faceoff', 'tierlist', 'quiz', 'compatibility'];
+      tabs.forEach(t => {
+        const el = document.getElementById(`tab-${t}`);
+        if (el) {
+          if (t === tabId) {
+            el.classList.remove('hidden');
+          } else {
+            el.classList.add('hidden');
+          }
+        }
+
+        // Desktop nav styling
+        const btn = document.getElementById(`nav-btn-${t}`);
+        if (btn) {
+          if (t === tabId) {
+            btn.className = 'nav-tab px-3.5 py-1.5 rounded-xl text-xs font-bold transition text-white bg-gradient-to-r from-purple-600 to-orange-500 shadow-md';
+          } else {
+            btn.className = 'nav-tab px-3.5 py-1.5 rounded-xl text-xs font-semibold text-slate-400 hover:text-white transition';
+          }
+        }
+
+        // Mobile nav styling
+        const mob = document.getElementById(`mob-nav-${t}`);
+        if (mob) {
+          mob.className = (t === tabId) ? 'text-purple-400 font-bold' : 'text-slate-400';
+        }
+      });
+    }
+
+    function copyToClipboard(text) {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).catch(() => fallbackCopy(text));
+      } else {
+        fallbackCopy(text);
+      }
+    }
+
+    function fallbackCopy(text) {
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      try { document.execCommand('copy'); } catch (e) {}
+      document.body.removeChild(ta);
+    }
+
+    let toastTimer = null;
+    function showToast(msg, icon = '✨') {
+      const toast = document.getElementById('app-toast');
+      document.getElementById('toast-text').innerText = msg;
+      document.getElementById('toast-icon').innerText = icon;
+
+      toast.classList.remove('translate-y-28', 'opacity-0');
+      toast.classList.add('translate-y-0', 'opacity-100');
+
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => {
+        toast.classList.remove('translate-y-0', 'opacity-100');
+        toast.classList.add('translate-y-28', 'opacity-0');
+      }, 2400);
+    }
+
+    // App Initialization
+    window.addEventListener('load', () => {
+      loadSavedProfile();
+      renderFaceOffMatch();
+      initTierBoard();
+      renderQuizStep();
+    });
+  </script>
+</body>
+</html>
